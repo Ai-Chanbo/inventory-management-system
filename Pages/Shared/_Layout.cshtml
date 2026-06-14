@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Inventory Management System</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/InventoryManagementSystem.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+            <div class="container-fluid px-4">
+                <a class="navbar-brand fw-bold text-primary" asp-page="/Index">Inventory DX</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item"><a class="nav-link" asp-page="/Index">ダッシュボード</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-page="/Products/Index">商品マスタ</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-page="/Inventory/Index">在庫一覧</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-page="/Transactions/Index">入出庫履歴</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-page="/StockIn/Create">入庫登録</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-page="/StockOut/Create">出庫登録</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-page="/Alerts/Index">在庫不足アラート</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid px-4 py-4">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted bg-white">
+        <div class="container-fluid px-4">
+            &copy; 2026 - Inventory Management System
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

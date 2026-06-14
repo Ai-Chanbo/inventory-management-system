@@ -1,0 +1,66 @@
+@page "{id:int}"
+@model InventoryManagementSystem.Pages.Products.DetailsModel
+@{
+    ViewData["Title"] = "商品詳細";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="h3 mb-1">@Model.Detail.Product.Name</h1>
+        <p class="text-muted mb-0">@Model.Detail.Product.Code / @Model.Detail.Product.Category</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-page="Edit" asp-route-id="@Model.Detail.Product.Id" class="btn btn-primary">編集</a>
+        <a asp-page="Index" class="btn btn-outline-secondary">戻る</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-12 col-lg-4">
+        <div class="card app-card">
+            <div class="card-body">
+                <h2 class="h5 mb-3">在庫状態</h2>
+                <div class="display-6 fw-bold">@Model.Detail.Inventory.CurrentStock <span class="fs-6 text-muted">@Model.Detail.Product.Unit</span></div>
+                <div class="mt-2"><span class="badge @Model.Detail.Inventory.StatusBadgeClass">@Model.Detail.Inventory.StatusText</span></div>
+                <dl class="row mt-4 mb-0">
+                    <dt class="col-5">安全在庫</dt>
+                    <dd class="col-7">@Model.Detail.Product.SafetyStock @Model.Detail.Product.Unit</dd>
+                    <dt class="col-5">備考</dt>
+                    <dd class="col-7">@(Model.Detail.Product.Description ?? "-")</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-8">
+        <div class="card app-card">
+            <div class="card-body">
+                <h2 class="h5 mb-3">入出庫履歴</h2>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>日付</th>
+                                <th>区分</th>
+                                <th class="text-end">数量</th>
+                                <th>保管場所・使用先</th>
+                                <th>備考</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Detail.Transactions)
+                            {
+                                <tr>
+                                    <td>@item.TransactionDate.ToString("yyyy/MM/dd")</td>
+                                    <td><span class="badge @(item.TransactionType == TransactionType.In ? "text-bg-primary" : "text-bg-secondary")">@(item.TransactionType == TransactionType.In ? "入庫" : "出庫")</span></td>
+                                    <td class="text-end">@item.Quantity</td>
+                                    <td>@(item.LocationOrPurpose ?? "-")</td>
+                                    <td>@(item.Note ?? "-")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

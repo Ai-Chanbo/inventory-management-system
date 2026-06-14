@@ -1,0 +1,52 @@
+@page
+@model InventoryManagementSystem.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "商品マスタ";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="h3 mb-1">商品マスタ</h1>
+        <p class="text-muted mb-0">保全部品・消耗品・工具の基本情報を管理します。</p>
+    </div>
+    <a class="btn btn-primary" asp-page="Create">新規登録</a>
+</div>
+
+<div class="card app-card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>商品コード</th>
+                        <th>商品名</th>
+                        <th>カテゴリ</th>
+                        <th class="text-end">現在庫</th>
+                        <th class="text-end">安全在庫</th>
+                        <th>状態</th>
+                        <th class="text-end">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Products)
+                    {
+                        var inventory = Model.Inventories[item.Id];
+                        <tr>
+                            <td class="fw-semibold">@item.Code</td>
+                            <td>@item.Name</td>
+                            <td><span class="badge category-badge">@item.Category</span></td>
+                            <td class="text-end">@inventory.CurrentStock @item.Unit</td>
+                            <td class="text-end">@item.SafetyStock @item.Unit</td>
+                            <td><span class="badge @inventory.StatusBadgeClass">@inventory.StatusText</span></td>
+                            <td class="text-end table-actions">
+                                <a asp-page="Details" asp-route-id="@item.Id">詳細</a>
+                                <a asp-page="Edit" asp-route-id="@item.Id">編集</a>
+                                <a asp-page="Delete" asp-route-id="@item.Id" class="text-danger">削除</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

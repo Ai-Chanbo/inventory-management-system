@@ -1,0 +1,34 @@
+@page "{id:int}"
+@model InventoryManagementSystem.Pages.Products.DeleteModel
+@{
+    ViewData["Title"] = "商品削除";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="h3 mb-1">商品削除</h1>
+        <p class="text-muted mb-0">関連する入出庫履歴も削除されます。</p>
+    </div>
+</div>
+
+<div class="card app-card form-card border-danger">
+    <div class="card-body">
+        <div class="alert alert-danger">この商品を削除しますか？この操作は元に戻せません。</div>
+        <dl class="row">
+            <dt class="col-sm-4">商品コード</dt>
+            <dd class="col-sm-8">@Model.Product.Code</dd>
+            <dt class="col-sm-4">商品名</dt>
+            <dd class="col-sm-8">@Model.Product.Name</dd>
+            <dt class="col-sm-4">カテゴリ</dt>
+            <dd class="col-sm-8">@Model.Product.Category</dd>
+        </dl>
+        <form method="post">
+            <button type="submit" class="btn btn-danger">削除</button>
+            <a asp-page="Index" class="btn btn-outline-secondary">戻る</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

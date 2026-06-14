@@ -1,0 +1,149 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 64px;
+  background: #f4f7fb;
+  color: #1f2937;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar-brand {
+  letter-spacing: 0;
+}
+
+.nav-link {
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.nav-link:hover {
+  color: #0d6efd;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.app-card,
+.metric-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.metric-card {
+  background: #fff;
+  padding: 1.25rem;
+  min-height: 112px;
+}
+
+.metric-card span {
+  display: block;
+  color: #6b7280;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.metric-card strong {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.form-card {
+  max-width: 920px;
+}
+
+.category-badge {
+  background: #eef6ff;
+  color: #0b5ed7;
+  border: 1px solid #cfe2ff;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.9rem 0.85rem;
+}
+
+.table thead th {
+  color: #6b7280;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom-color: #e5e7eb;
+}
+
+.table-actions {
+  white-space: nowrap;
+}
+
+.table-actions a {
+  margin-left: 0.75rem;
+}
+
+.chart-wrap {
+  min-height: 340px;
+  position: relative;
+}
+
+.empty-state {
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  color: #64748b;
+  padding: 2rem;
+  text-align: center;
+  background: #f8fafc;
+}
+
+.btn {
+  font-weight: 700;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+@media (max-width: 767.98px) {
+  .page-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .page-header .btn,
+  .page-header .d-flex {
+    width: 100%;
+  }
+
+  .page-header .d-flex .btn {
+    flex: 1;
+  }
+
+  .table-actions a {
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+}

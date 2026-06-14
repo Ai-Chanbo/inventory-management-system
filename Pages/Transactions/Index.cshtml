@@ -1,0 +1,96 @@
+@page
+@model InventoryManagementSystem.Pages.Transactions.IndexModel
+@{
+    ViewData["Title"] = "入出庫履歴";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="h3 mb-1">入出庫履歴</h1>
+        <p class="text-muted mb-0">部品ごとの入庫・出庫の記録を時系列で確認します。</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-primary" asp-page="/StockIn/Create">入庫登録</a>
+        <a class="btn btn-outline-primary" asp-page="/StockOut/Create">出庫登録</a>
+    </div>
+</div>
+
+<div class="card app-card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-12 col-lg-4">
+                <label asp-for="Search" class="form-label">キーワード</label>
+                <input asp-for="Search" class="form-control" placeholder="商品コード、商品名、カテゴリ、使用先" />
+            </div>
+            <div class="col-12 col-md-4 col-lg-2">
+                <label asp-for="Type" class="form-label">区分</label>
+                <select asp-for="Type" class="form-select">
+                    <option value="">すべて</option>
+                    <option value="@TransactionType.In">入庫</option>
+                    <option value="@TransactionType.Out">出庫</option>
+                </select>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <label asp-for="From" class="form-label">開始日</label>
+                <input asp-for="From" class="form-control" type="date" />
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <label asp-for="To" class="form-label">終了日</label>
+                <input asp-for="To" class="form-control" type="date" />
+            </div>
+            <div class="col-12 col-lg-2 d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-fill">検索</button>
+                <a asp-page="Index" class="btn btn-outline-secondary">解除</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card app-card">
+    <div class="card-body">
+        @if (!Model.Transactions.Any())
+        {
+            <div class="empty-state">条件に一致する入出庫履歴はありません。</div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>日付</th>
+                            <th>区分</th>
+                            <th>商品コード</th>
+                            <th>商品名</th>
+                            <th>カテゴリ</th>
+                            <th class="text-end">数量</th>
+                            <th>保管場所・使用先</th>
+                            <th>備考</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Transactions)
+                        {
+                            <tr>
+                                <td>@item.TransactionDate.ToString("yyyy/MM/dd")</td>
+                                <td>
+                                    <span class="badge @(item.TransactionType == TransactionType.In ? "text-bg-primary" : "text-bg-secondary")">
+                                        @(item.TransactionType == TransactionType.In ? "入庫" : "出庫")
+                                    </span>
+                                </td>
+                                <td class="fw-semibold">@item.Product!.Code</td>
+                                <td>
+                                    <a asp-page="/Products/Details" asp-route-id="@item.ProductId">@item.Product.Name</a>
+                                </td>
+                                <td><span class="badge category-badge">@item.Product.Category</span></td>
+                                <td class="text-end">@item.Quantity @item.Product.Unit</td>
+                                <td>@(item.LocationOrPurpose ?? "-")</td>
+                                <td>@(item.Note ?? "-")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,30 @@
+@page "{id:int}"
+@model InventoryManagementSystem.Pages.Products.EditModel
+@{
+    ViewData["Title"] = "商品編集";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="h3 mb-1">商品編集</h1>
+        <p class="text-muted mb-0">商品マスタの基本情報を更新します。</p>
+    </div>
+</div>
+
+<div class="card app-card form-card">
+    <div class="card-body">
+        <form method="post">
+            <input type="hidden" asp-for="Product.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <partial name="_ProductForm" model="Model.Product" />
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">保存</button>
+                <a asp-page="Index" class="btn btn-outline-secondary">戻る</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

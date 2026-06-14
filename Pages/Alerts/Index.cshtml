@@ -1,0 +1,54 @@
+@page
+@model InventoryManagementSystem.Pages.Alerts.IndexModel
+@{
+    ViewData["Title"] = "在庫不足アラート";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="h3 mb-1">在庫不足アラート</h1>
+        <p class="text-muted mb-0">不足・注意状態の品目を優先度順に表示します。</p>
+    </div>
+    <a class="btn btn-primary" asp-page="/StockIn/Create">入庫登録</a>
+</div>
+
+<div class="card app-card">
+    <div class="card-body">
+        @if (!Model.Alerts.Any())
+        {
+            <div class="empty-state">現在、在庫不足アラートはありません。</div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>商品コード</th>
+                            <th>商品名</th>
+                            <th>カテゴリ</th>
+                            <th class="text-end">現在庫</th>
+                            <th class="text-end">安全在庫</th>
+                            <th>状態</th>
+                            <th class="text-end">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Alerts)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@item.ProductCode</td>
+                                <td>@item.ProductName</td>
+                                <td><span class="badge category-badge">@item.Category</span></td>
+                                <td class="text-end">@item.CurrentStock @item.Unit</td>
+                                <td class="text-end">@item.SafetyStock @item.Unit</td>
+                                <td><span class="badge @item.StatusBadgeClass">@item.StatusText</span></td>
+                                <td class="text-end"><a asp-page="/Products/Details" asp-route-id="@item.ProductId">詳細</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
